@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meteo/widgets/side_menu.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,49 +34,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavDrawer(),
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('Side menu'),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(8),
-        children: <Widget>[
-          ListTile(
-            title: Text('Tokyo'),
-            leading: Icon(Icons.location_city),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MyHomePage(title: 'Tokyo'),
-                ),
-              );
-            },
-          ),
-          ListTile(
-            title: Text('Paris'),
-            leading: Icon(Icons.location_city),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MyHomePage(title: 'Paris'),
-                ),
-              );
-            },
-          ),
-          ListTile(
-            title: Text('London'),
-            leading: Icon(Icons.location_city),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MyHomePage(title: 'London'),
-                ),
-              );
-            },
-          ),
-        ],
+      body: Center(
+        child: Text('Side Menu Tutorial'),
       ),
     );
   }
