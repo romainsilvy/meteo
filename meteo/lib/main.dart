@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       drawer: NavDrawer(),
       appBar: AppBar(
-        title: Text('Side menu'),
+        title: Text('Paris'),
       ),
       body: Center(
         child: Text('Side Menu Tutorial'),
