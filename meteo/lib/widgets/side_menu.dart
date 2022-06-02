@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meteo/main.dart';
+import 'package:prompt_dialog/prompt_dialog.dart';
 
 class NavDrawer extends StatelessWidget {
   @override
@@ -60,11 +60,11 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.add),
             title: Text('Ajouter une ville'),
-            onTap: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => AddCity()),
-              // );
+            onTap: () async {
+              return print(await prompt(
+                context,
+                title: const Text('Ajoutez une ville'),
+              ));
             },
           ),
         ],
