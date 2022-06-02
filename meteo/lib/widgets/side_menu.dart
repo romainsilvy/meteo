@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meteo/models/database_handler.dart';
 import 'package:prompt_dialog/prompt_dialog.dart';
 
 class NavDrawer extends StatelessWidget {

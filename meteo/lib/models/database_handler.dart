@@ -6,7 +6,7 @@ class DatabaseHandler {
   Future<Database> initializeDB() async {
     String path = await getDatabasesPath();
     return openDatabase(
-      join(path, 'example.db'),
+      join(path, 'city.db'),
       onCreate: (database, version) async {
         await database.execute(
           "CREATE TABLE cities(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL)",
@@ -17,9 +17,11 @@ class DatabaseHandler {
   }
 
   //insert city
-  Future<void> insertCity(City city) async {
+  Future<int> insertCity(City city) async {
+    int result = 0;
     final Database db = await initializeDB();
-    await db.insert('users', city.toMap());
+    result = await db.insert('cities', city.toMap());
+    return result;
   }
 
   //get all cities
@@ -28,7 +30,6 @@ class DatabaseHandler {
     final List<Map<String, dynamic>> maps = await db.query('cities');
     return List.generate(maps.length, (i) {
       return City(
-        id: maps[i]['id'],
         name: maps[i]['name'],
       );
     });
@@ -37,6 +38,6 @@ class DatabaseHandler {
   //delete city
   Future<void> deleteCity(City city) async {
     final Database db = await initializeDB();
-    await db.delete('cities', where: 'id = ?', whereArgs: [city.id]);
+    await db.delete('cities', where: 'name = ?', whereArgs: [city.name]);
   }
 }
