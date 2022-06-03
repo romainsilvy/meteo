@@ -36,8 +36,14 @@ class DatabaseHandler {
   }
 
   //delete city
-  Future<void> deleteCity(City city) async {
+  Future<void> deleteCity(String name) async {
     final Database db = await initializeDB();
-    await db.delete('cities', where: 'name = ?', whereArgs: [city.name]);
+    await db.delete('cities', where: 'name = ?', whereArgs: [name]);
+  }
+
+  //clear all cities
+  Future<void> clearAllCities() async {
+    final Database db = await initializeDB();
+    await db.delete('cities');
   }
 }

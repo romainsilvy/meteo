@@ -41,14 +41,9 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     this.handler = DatabaseHandler();
     this.handler.initializeDB().whenComplete(() async {
-      await this.addCity();
+      await handler.clearAllCities();
       setState(() {});
     });
-  }
-
-  Future<int> addCity() async {
-    City firstCity = City(name: "paris");
-    return await this.handler.insertCity(firstCity);
   }
 
   Widget build(BuildContext context) {
