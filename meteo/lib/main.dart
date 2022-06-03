@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text('Paris'),
       ),
       body: FutureBuilder(
-        future: this.handler.getCities(),
+        future: this.handler.getAllCities(),
         builder: (BuildContext context, AsyncSnapshot<List<City>> snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(

@@ -25,7 +25,7 @@ class DatabaseHandler {
   }
 
   //get all cities
-  Future<List<City>> getCities() async {
+  Future<List<City>> getAllCities() async {
     final Database db = await initializeDB();
     final List<Map<String, dynamic>> maps = await db.query('cities');
     return List.generate(maps.length, (i) {
