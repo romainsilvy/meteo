@@ -3,7 +3,14 @@ import 'package:meteo/models/city.dart';
 import 'package:meteo/models/database_handler.dart';
 import 'package:prompt_dialog/prompt_dialog.dart';
 
-class NavDrawer extends StatelessWidget {
+class NavDrawer extends StatefulWidget {
+  const NavDrawer({Key? key}) : super(key: key);
+
+  @override
+  State<NavDrawer> createState() => _NavDrawerState();
+}
+
+class _NavDrawerState extends State<NavDrawer> {
   @override
   final DatabaseHandler handler = DatabaseHandler();
 
@@ -71,7 +78,7 @@ class NavDrawer extends StatelessWidget {
               if (cityName != null) {
                 City city = City(name: cityName);
                 await handler.insertCity(city);
-                // setState(() {});
+                setState(() {});
               }
             },
           ),
@@ -80,3 +87,5 @@ class NavDrawer extends StatelessWidget {
     );
   }
 }
+
+// class NavDrawer extends StatelessWidget {}
