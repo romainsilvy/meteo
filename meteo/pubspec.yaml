@@ -37,6 +37,7 @@ dependencies:
   prompt_dialog: ^1.0.9
   sqflite: ^2.0.2+1
   path: ^1.8.0
+  flutter_native_splash: ^2.2.2
 
 dev_dependencies:
   flutter_test:
