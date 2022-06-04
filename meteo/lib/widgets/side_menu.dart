@@ -20,28 +20,6 @@ class _NavDrawerState extends State<NavDrawer> {
         future: handler.getAllCities(),
         builder: (BuildContext context, AsyncSnapshot<List<City>> snapshot) {
           if (snapshot.hasData) {
-            if (snapshot.data!.length == 0) {
-              return ListView(
-                children: <Widget>[
-                  _buildDrawerHeader(),
-                  ListTile(
-                    leading: Icon(Icons.add),
-                    title: Text('Ajouter une ville'),
-                    onTap: () async {
-                      String? cityName = await prompt(
-                        context,
-                        title: const Text('Ajoutez une ville'),
-                      );
-                      if (cityName != null) {
-                        City city = City(name: cityName);
-                        await handler.insertCity(city);
-                        setState(() {});
-                      }
-                    },
-                  ),
-                ],
-              );
-            }
             return ListView.builder(
               shrinkWrap: true,
               itemCount: (snapshot.data!.length ?? 0) + 2,
