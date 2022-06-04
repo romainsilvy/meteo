@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:meteo/models/database_handler.dart';
+import 'package:meteo/models/weather_handler.dart';
+import 'package:meteo/models/weather.dart';
+
 import 'package:meteo/widgets/side_menu.dart';
 
 import 'models/city.dart';
@@ -35,6 +38,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late DatabaseHandler handler;
+  final WeatherHandler weatherHandler = WeatherHandler();
 
   @override
   void initState() {
@@ -52,32 +56,30 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text('Paris'),
       ),
+      //retrieve the weather data of lyon
       body: FutureBuilder(
-        future: this.handler.getAllCities(),
-        builder: (BuildContext context, AsyncSnapshot<List<City>> snapshot) {
+        future: weatherHandler.getWeather('Paris'),
+        builder: (BuildContext context, AsyncSnapshot<WeatherData> snapshot) {
           if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: snapshot.data?.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Dismissible(
-                  direction: DismissDirection.endToStart,
-                  background: Container(
-                    color: Colors.red,
-                    alignment: Alignment.centerRight,
-                    padding: EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Icon(Icons.delete_forever),
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    '${snapshot.data!.main!.temp.toString()}°C',
+                    style: TextStyle(fontSize: 50),
                   ),
-                  key: ValueKey<int>(0),
-                  child: Card(
-                      child: ListTile(
-                    contentPadding: EdgeInsets.all(8.0),
-                    title: Text(snapshot.data![index].name),
-                  )),
-                );
-              },
+                  Text(
+                    '${snapshot.data!.weather![0].description}',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ],
+              ),
             );
           } else {
-            return Center(child: CircularProgressIndicator());
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           }
         },
       ),
