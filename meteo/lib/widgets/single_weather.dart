@@ -154,12 +154,8 @@ class _SingleWeatherState extends State<SingleWeather> {
           FutureBuilder(
             future: weatherHandler.getDailyWeather(45.76, 4.83),
             builder: (BuildContext context, AsyncSnapshot<DailyWeatherData> snapshot) {
-              return Center(
-                  child: CircularProgressIndicator(),
-                );
-            }
-          ),
-          Column(children: [
+              if (snapshot.hasData) {
+                return Column(children: [
             Container(
               margin: EdgeInsets.symmetric(vertical: 30),
               decoration: BoxDecoration(
@@ -180,7 +176,7 @@ class _SingleWeatherState extends State<SingleWeather> {
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        '10\u2103',
+                        '${snapshot.data!.daily![1].temp!.day.toString()}°C',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -202,7 +198,7 @@ class _SingleWeatherState extends State<SingleWeather> {
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        '17\u2103',
+                        '${snapshot.data!.daily![2].temp!.day.toString()}°C',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -224,7 +220,7 @@ class _SingleWeatherState extends State<SingleWeather> {
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        '14\u2103',
+                        '${snapshot.data!.daily![3].temp!.day.toString()}°C',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -246,7 +242,7 @@ class _SingleWeatherState extends State<SingleWeather> {
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        '25\u2103',
+                        '${snapshot.data!.daily![4].temp!.day.toString()}°C',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -268,7 +264,7 @@ class _SingleWeatherState extends State<SingleWeather> {
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        '34\u2103',
+                        '${snapshot.data!.daily![5].temp!.day.toString()}°C',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -283,7 +279,14 @@ class _SingleWeatherState extends State<SingleWeather> {
                     ]),
                   ]),
             ),
-          ]),
+          ]);
+              }
+              return Center(
+                  child: CircularProgressIndicator(),
+                );
+            }
+          ),
+          
         ],
       ),
     );
