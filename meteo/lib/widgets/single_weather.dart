@@ -122,7 +122,7 @@ class _SingleWeatherState extends State<SingleWeather> {
                                   width: 10,
                                 ),
                                 Text(
-                                  locationList[widget.index].weatherType,
+                                  snapshot.data!.weather![0].main!,
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 22,
