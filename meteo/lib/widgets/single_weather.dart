@@ -7,6 +7,8 @@ import 'package:meteo/models/weather_handler.dart';
 import 'package:meteo/models/database_handler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:meteo/models/weather_location.dart';
+import 'package:intl/intl.dart';
+
 
 // class SingleWeather extends StatelessWidget {
 // final int index;
@@ -29,6 +31,7 @@ class _SingleWeatherState extends State<SingleWeather> {
   late DatabaseHandler handler;
   final WeatherHandler weatherHandler = WeatherHandler();
 
+
   @override
   void initState() {
     super.initState();
@@ -37,6 +40,7 @@ class _SingleWeatherState extends State<SingleWeather> {
   }
 
   Widget build(BuildContext context) {
+    String day = DateFormat('EEEE').format(DateTime.now());
     return Container(
       padding: EdgeInsets.all(20),
       child: Column(
@@ -169,10 +173,11 @@ class _SingleWeatherState extends State<SingleWeather> {
                   children: [
                     Column(children: [
                       Text(
-                        'Mardi',
+                        
+                        DateFormat('EEEE').format(DateTime.fromMillisecondsSinceEpoch(snapshot.data!.daily![1].dt! * 1000)),
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
@@ -191,10 +196,10 @@ class _SingleWeatherState extends State<SingleWeather> {
                     ]),
                     Column(children: [
                       Text(
-                        'Mercredi',
+                        DateFormat('EEEE').format(DateTime.fromMillisecondsSinceEpoch(snapshot.data!.daily![2].dt! * 1000)),
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
@@ -213,10 +218,10 @@ class _SingleWeatherState extends State<SingleWeather> {
                     ]),
                     Column(children: [
                       Text(
-                        'Jeudi',
+                        DateFormat('EEEE').format(DateTime.fromMillisecondsSinceEpoch(snapshot.data!.daily![3].dt! * 1000)),
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
@@ -235,10 +240,10 @@ class _SingleWeatherState extends State<SingleWeather> {
                     ]),
                     Column(children: [
                       Text(
-                        'Vendredi',
+                        DateFormat('EEEE').format(DateTime.fromMillisecondsSinceEpoch(snapshot.data!.daily![4].dt! * 1000)),
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
@@ -257,10 +262,10 @@ class _SingleWeatherState extends State<SingleWeather> {
                     ]),
                     Column(children: [
                       Text(
-                        'Samedi',
+                        DateFormat('EEEE').format(DateTime.fromMillisecondsSinceEpoch(snapshot.data!.daily![5].dt! * 1000)),
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
