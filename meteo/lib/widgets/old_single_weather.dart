@@ -39,19 +39,14 @@ class _SingleWeatherState extends State<SingleWeather> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            
-            child: FutureBuilder(
-              future: weatherHandler.getWeather(locationList[widget.index].city),
-              builder: (BuildContext context, AsyncSnapshot<WeatherData> snapshot) {
-                if (snapshot.hasData) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
+      child: FutureBuilder(
+          future: weatherHandler.getWeather(locationList[widget.index].city),
+          builder: (BuildContext context, AsyncSnapshot<WeatherData> snapshot) {
+            if (snapshot.hasData) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,150 +137,15 @@ class _SingleWeatherState extends State<SingleWeather> {
                       ],
                     ),
                   ),
-                    ]
-                  );
-                }
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            ),
-          ),
-          FutureBuilder(
-            future: weatherHandler.getDailyWeather(45.76, 4.83),
-            builder: (BuildContext context, AsyncSnapshot<DailyWeatherData> snapshot) {
+                  //weather day by day      
+                ]
+              );
+            } else {
               return Center(
-                  child: CircularProgressIndicator(),
-                );
+                child: CircularProgressIndicator(),
+              );
             }
-          ),
-          Column(children: [
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 30),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.white30),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(children: [
-                      Text(
-                        'Mardi',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        '10\u2103',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                      SvgPicture.asset(
-                        'assets/images/moon.svg',
-                        height: 24,
-                        width: 24,
-                        color: Colors.white,
-                      ),
-                    ]),
-                    Column(children: [
-                      Text(
-                        'Mercredi',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        '17\u2103',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                      SvgPicture.asset(
-                        'assets/images/cloudy.svg',
-                        height: 24,
-                        width: 24,
-                        color: Colors.white,
-                      ),
-                    ]),
-                    Column(children: [
-                      Text(
-                        'Jeudi',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        '14\u2103',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                      SvgPicture.asset(
-                        'assets/images/moon.svg',
-                        height: 24,
-                        width: 24,
-                        color: Colors.white,
-                      ),
-                    ]),
-                    Column(children: [
-                      Text(
-                        'Vendredi',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        '25\u2103',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                      SvgPicture.asset(
-                        'assets/images/rain.svg',
-                        height: 24,
-                        width: 24,
-                        color: Colors.white,
-                      ),
-                    ]),
-                    Column(children: [
-                      Text(
-                        'Samedi',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        '34\u2103',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                      SvgPicture.asset(
-                        'assets/images/sun.svg',
-                        height: 24,
-                        width: 24,
-                        color: Colors.white,
-                      ),
-                    ]),
-                  ]),
-            ),
-          ]),
-        ],
-      ),
+          }),
     );
   }
 }
