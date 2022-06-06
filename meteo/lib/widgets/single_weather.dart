@@ -65,7 +65,34 @@ class _SingleWeatherState extends State<SingleWeather> {
                                 height: 5,
                               ),
                               Text(
-                                snapshot.data!.timezone!.toString(),
+                                (DateTime.fromMillisecondsSinceEpoch(
+                                                    snapshot.data!.dt! * 1000)
+                                                .hour +
+                                            DateTime.fromMillisecondsSinceEpoch(
+                                                    snapshot.data!.timezone! *
+                                                        1000)
+                                                .hour)
+                                        .toString() +
+                                    ' : ' +
+                                    DateTime.fromMillisecondsSinceEpoch(
+                                            snapshot.data!.dt! * 1000)
+                                        .minute
+                                        .toString() +
+                                    ' - ' +
+                                    DateTime.fromMillisecondsSinceEpoch(
+                                            snapshot.data!.dt! * 1000)
+                                        .day
+                                        .toString() +
+                                    '/' +
+                                    DateTime.fromMillisecondsSinceEpoch(
+                                            snapshot.data!.dt! * 1000)
+                                        .month
+                                        .toString() +
+                                    '/' +
+                                    DateTime.fromMillisecondsSinceEpoch(
+                                            snapshot.data!.dt! * 1000)
+                                        .year
+                                        .toString(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,
