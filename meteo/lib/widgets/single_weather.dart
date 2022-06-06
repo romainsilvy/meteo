@@ -122,11 +122,10 @@ class _SingleWeatherState extends State<SingleWeather> {
                             ),
                             Row(
                               children: [
-                                SvgPicture.asset(
-                                  locationList[widget.index].iconUrl,
+                                Image.network(
+                                  'http://openweathermap.org/img/wn/${snapshot.data!.weather![0].icon}.png',
                                   height: 34,
                                   width: 34,
-                                  color: Colors.white,
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -187,12 +186,12 @@ class _SingleWeatherState extends State<SingleWeather> {
                           fontSize: 18,
                         ),
                       ),
-                      SvgPicture.asset(
-                        'assets/images/moon.svg',
-                        height: 24,
-                        width: 24,
-                        color: Colors.white,
-                      ),
+                      //display a   png icon from the web 
+                      Image.network(
+                        'http://openweathermap.org/img/wn/${snapshot.data!.daily![1].weather![0].icon}.png',
+                   
+                      )
+       
                     ]),
                     Column(children: [
                       Text(
@@ -209,12 +208,9 @@ class _SingleWeatherState extends State<SingleWeather> {
                           fontSize: 18,
                         ),
                       ),
-                      SvgPicture.asset(
-                        'assets/images/cloudy.svg',
-                        height: 24,
-                        width: 24,
-                        color: Colors.white,
-                      ),
+                      Image.network(
+                        'http://openweathermap.org/img/wn/${snapshot.data!.daily![2].weather![0].icon}.png',
+                      )
                     ]),
                     Column(children: [
                       Text(
@@ -231,12 +227,9 @@ class _SingleWeatherState extends State<SingleWeather> {
                           fontSize: 18,
                         ),
                       ),
-                      SvgPicture.asset(
-                        'assets/images/moon.svg',
-                        height: 24,
-                        width: 24,
-                        color: Colors.white,
-                      ),
+                      Image.network(
+                        'http://openweathermap.org/img/wn/${snapshot.data!.daily![3].weather![0].icon}.png',
+                      )
                     ]),
                     Column(children: [
                       Text(
@@ -253,12 +246,9 @@ class _SingleWeatherState extends State<SingleWeather> {
                           fontSize: 18,
                         ),
                       ),
-                      SvgPicture.asset(
-                        'assets/images/rain.svg',
-                        height: 24,
-                        width: 24,
-                        color: Colors.white,
-                      ),
+                      Image.network(
+                        'http://openweathermap.org/img/wn/${snapshot.data!.daily![4].weather![0].icon}.png',
+                      )
                     ]),
                     Column(children: [
                       Text(
@@ -275,12 +265,9 @@ class _SingleWeatherState extends State<SingleWeather> {
                           fontSize: 18,
                         ),
                       ),
-                      SvgPicture.asset(
-                        'assets/images/sun.svg',
-                        height: 24,
-                        width: 24,
-                        color: Colors.white,
-                      ),
+                      Image.network(
+                        'http://openweathermap.org/img/wn/${snapshot.data!.daily![5].weather![0].icon}.png',
+                      )
                     ]),
                   ]),
             ),
