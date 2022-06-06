@@ -126,7 +126,7 @@ class Weather {
 }
 
 class Main {
-  double? temp;
+  int? temp;
   double? feelsLike;
   double? tempMin;
   double? tempMax;
@@ -142,7 +142,7 @@ class Main {
       this.humidity});
 
   Main.fromJson(Map<String, dynamic> json) {
-    temp = json['temp'];
+    temp = json['temp'].round();
     feelsLike = json['feels_like'];
     tempMin = json['temp_min'];
     tempMax = json['temp_max'];
