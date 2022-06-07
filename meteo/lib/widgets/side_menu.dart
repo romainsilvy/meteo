@@ -115,4 +115,3 @@ DrawerHeader _buildDrawerHeader() {
             fit: BoxFit.fill, image: AssetImage('assets/images/city.jpg'))),
   );
 }
-// class NavDrawer extends StatelessWidget {}

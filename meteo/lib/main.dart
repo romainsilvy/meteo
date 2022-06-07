@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meteo/models/database_handler.dart';
 import 'package:meteo/home.dart';
-import 'package:meteo/widgets/side_menu.dart';
-
-import 'models/city.dart';
 
 void main() {
   runApp(const MyApp());
