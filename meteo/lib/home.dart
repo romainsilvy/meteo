@@ -1,11 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:meteo/models/weather_location.dart';
 import 'package:meteo/widgets/single_weather.dart';
-import 'package:meteo/widgets/side_menu.dart';
 import 'package:meteo/widgets/slider_dot.dart';
 import 'package:meteo/models/database_handler.dart';
 import 'package:meteo/models/city.dart';
@@ -22,9 +18,13 @@ class _HomePageState extends State<HomePage> {
   int _currentPage = 0;
   late String bgImg;
   final DatabaseHandler handler = DatabaseHandler();
-
+  final PageController _controller =
+      PageController(initialPage: 0, keepPage: false);
   _OnPageChange(int index) {
     setState(() {
+      // _controller.animateToPage(index,
+      //     duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+      _controller.jumpToPage(index);
       _currentPage = index;
     });
   }
@@ -65,7 +65,12 @@ class _HomePageState extends State<HomePage> {
                         setState(() {});
                       },
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      _controller.jumpToPage(index - 1);
+                      setState(() {
+                        _currentPage = index - 1;
+                      });
+                    },
                   );
                 } else {
                   return ListTile(
@@ -98,22 +103,6 @@ class _HomePageState extends State<HomePage> {
           }
         },
       ),
-      // button to insert cities
-      // ListTile(
-      //   leading: Icon(Icons.add),
-      //   title: Text('Ajouter une ville'),
-      //   onTap: () async {
-      //     String? cityName = await prompt(
-      //       context,
-      //       title: const Text('Ajoutez une ville'),
-      //     );
-      //     if (cityName != null) {
-      //       City city = City(name: cityName);
-      //       await handler.insertCity(city);
-      //       setState(() {});
-      //     }
-      //   },
-      // ),
     );
   }
 
@@ -139,6 +128,13 @@ class _HomePageState extends State<HomePage> {
           'Ma ville',
           style: TextStyle(color: Colors.white),
         ),
+      ),
+      //button to add a new city
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _controller.jumpToPage(_currentPage + 1);
+        },
+        child: Icon(Icons.add),
       ),
       body: Container(
           child: Stack(children: [
@@ -176,6 +172,7 @@ class _HomePageState extends State<HomePage> {
                 (BuildContext context, AsyncSnapshot<List<City>> snapshot) {
               if (snapshot.hasData) {
                 return PageView.builder(
+                    controller: _controller,
                     scrollDirection: Axis.horizontal,
                     onPageChanged: _OnPageChange,
                     itemCount: snapshot.data!.length,
