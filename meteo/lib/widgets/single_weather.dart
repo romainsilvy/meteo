@@ -7,8 +7,9 @@ import 'package:meteo/models/weather_handler.dart';
 import 'package:meteo/models/database_handler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:meteo/models/weather_location.dart';
-import 'package:intl/intl.dart';
+import 'package:meteo/widgets/slider_dot.dart';
 
+import 'package:intl/intl.dart';
 
 // class SingleWeather extends StatelessWidget {
 // final int index;
@@ -20,8 +21,10 @@ import 'package:intl/intl.dart';
 
 class SingleWeather extends StatefulWidget {
   final int index;
+  final String name;
 
-  const SingleWeather({Key? key, required this.index}) : super(key: key);
+  const SingleWeather({Key? key, required this.index, required this.name})
+      : super(key: key);
 
   @override
   State<SingleWeather> createState() => _SingleWeatherState();
@@ -30,7 +33,6 @@ class SingleWeather extends StatefulWidget {
 class _SingleWeatherState extends State<SingleWeather> {
   late DatabaseHandler handler;
   final WeatherHandler weatherHandler = WeatherHandler();
-
 
   @override
   void initState() {
@@ -47,238 +49,243 @@ class _SingleWeatherState extends State<SingleWeather> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            
             child: FutureBuilder(
-              future: weatherHandler.getWeather(locationList[widget.index].city),
-              builder: (BuildContext context, AsyncSnapshot<WeatherData> snapshot) {
-                if (snapshot.hasData) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: 150),
-                              Text(
-                                snapshot.data!.name!,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 35,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                (DateTime.fromMillisecondsSinceEpoch(
-                                                    snapshot.data!.dt! * 1000)
-                                                .hour +
-                                            DateTime.fromMillisecondsSinceEpoch(
-                                                    snapshot.data!.timezone! *
-                                                        1000)
-                                                .hour)
-                                        .toString() +
-                                    ' : ' +
-                                    DateTime.fromMillisecondsSinceEpoch(
-                                            snapshot.data!.dt! * 1000)
-                                        .minute
-                                        .toString() +
-                                    ' - ' +
-                                    DateTime.fromMillisecondsSinceEpoch(
-                                            snapshot.data!.dt! * 1000)
-                                        .day
-                                        .toString() +
-                                    '/' +
-                                    DateTime.fromMillisecondsSinceEpoch(
-                                            snapshot.data!.dt! * 1000)
-                                        .month
-                                        .toString() +
-                                    '/' +
-                                    DateTime.fromMillisecondsSinceEpoch(
-                                            snapshot.data!.dt! * 1000)
-                                        .year
-                                        .toString(),
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ]),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${snapshot.data!.main!.temp.toString()}°C',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 85,
-                                  fontWeight: FontWeight.w300),
-                            ),
-                            Row(
+                future: weatherHandler.getWeather(widget.name),
+                builder: (BuildContext context,
+                    AsyncSnapshot<WeatherData> snapshot) {
+                  if (snapshot.hasData) {
+                    return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Image.network(
-                                  'http://openweathermap.org/img/wn/${snapshot.data!.weather![0].icon}.png',
-                                  height: 34,
-                                  width: 34,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  snapshot.data!.weather![0].main!,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
+                                Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(height: 150),
+                                      Text(
+                                        snapshot.data!.name!,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 35,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        (DateTime.fromMillisecondsSinceEpoch(snapshot.data!.dt! * 1000)
+                                                        .hour +
+                                                    DateTime.fromMillisecondsSinceEpoch(
+                                                            snapshot.data!
+                                                                    .timezone! *
+                                                                1000)
+                                                        .hour)
+                                                .toString() +
+                                            ' : ' +
+                                            DateTime.fromMillisecondsSinceEpoch(
+                                                    snapshot.data!.dt! * 1000)
+                                                .minute
+                                                .toString() +
+                                            ' - ' +
+                                            DateTime.fromMillisecondsSinceEpoch(
+                                                    snapshot.data!.dt! * 1000)
+                                                .day
+                                                .toString() +
+                                            '/' +
+                                            DateTime.fromMillisecondsSinceEpoch(
+                                                    snapshot.data!.dt! * 1000)
+                                                .month
+                                                .toString() +
+                                            '/' +
+                                            DateTime.fromMillisecondsSinceEpoch(
+                                                    snapshot.data!.dt! * 1000)
+                                                .year
+                                                .toString(),
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ]),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${snapshot.data!.main!.temp.toString()}°C',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 85,
+                                          fontWeight: FontWeight.w300),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Image.network(
+                                          'http://openweathermap.org/img/wn/${snapshot.data!.weather![0].icon}.png',
+                                          height: 34,
+                                          width: 34,
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          snapshot.data!.weather![0].main!,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )
                               ],
                             ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                    ]
+                          ),
+                        ]);
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(),
                   );
+                }),
+          ),
+          FutureBuilder(
+              future: weatherHandler.getDailyWeather(45.76, 4.83),
+              builder: (BuildContext context,
+                  AsyncSnapshot<DailyWeatherData> snapshot) {
+                if (snapshot.hasData) {
+                  return Column(children: [
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 30),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white30),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(children: [
+                              Text(
+                                DateFormat('EEEE').format(
+                                    DateTime.fromMillisecondsSinceEpoch(
+                                        snapshot.data!.daily![1].dt! * 1000)),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                '${snapshot.data!.daily![1].temp!.day.toString()}°C',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              //display a   png icon from the web
+                              Image.network(
+                                'http://openweathermap.org/img/wn/${snapshot.data!.daily![1].weather![0].icon}.png',
+                              )
+                            ]),
+                            Column(children: [
+                              Text(
+                                DateFormat('EEEE').format(
+                                    DateTime.fromMillisecondsSinceEpoch(
+                                        snapshot.data!.daily![2].dt! * 1000)),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                '${snapshot.data!.daily![2].temp!.day.toString()}°C',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              Image.network(
+                                'http://openweathermap.org/img/wn/${snapshot.data!.daily![2].weather![0].icon}.png',
+                              )
+                            ]),
+                            Column(children: [
+                              Text(
+                                DateFormat('EEEE').format(
+                                    DateTime.fromMillisecondsSinceEpoch(
+                                        snapshot.data!.daily![3].dt! * 1000)),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                '${snapshot.data!.daily![3].temp!.day.toString()}°C',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              Image.network(
+                                'http://openweathermap.org/img/wn/${snapshot.data!.daily![3].weather![0].icon}.png',
+                              )
+                            ]),
+                            Column(children: [
+                              Text(
+                                DateFormat('EEEE').format(
+                                    DateTime.fromMillisecondsSinceEpoch(
+                                        snapshot.data!.daily![4].dt! * 1000)),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                '${snapshot.data!.daily![4].temp!.day.toString()}°C',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              Image.network(
+                                'http://openweathermap.org/img/wn/${snapshot.data!.daily![4].weather![0].icon}.png',
+                              )
+                            ]),
+                            Column(children: [
+                              Text(
+                                DateFormat('EEEE').format(
+                                    DateTime.fromMillisecondsSinceEpoch(
+                                        snapshot.data!.daily![5].dt! * 1000)),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                '${snapshot.data!.daily![5].temp!.day.toString()}°C',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              Image.network(
+                                'http://openweathermap.org/img/wn/${snapshot.data!.daily![5].weather![0].icon}.png',
+                              )
+                            ]),
+                          ]),
+                    ),
+                  ]);
                 }
                 return Center(
                   child: CircularProgressIndicator(),
                 );
-              }
-            ),
-          ),
-          FutureBuilder(
-            future: weatherHandler.getDailyWeather(45.76, 4.83),
-            builder: (BuildContext context, AsyncSnapshot<DailyWeatherData> snapshot) {
-              if (snapshot.hasData) {
-                return Column(children: [
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 30),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.white30),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(children: [
-                      Text(
-                        
-                        DateFormat('EEEE').format(DateTime.fromMillisecondsSinceEpoch(snapshot.data!.daily![1].dt! * 1000)),
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        '${snapshot.data!.daily![1].temp!.day.toString()}°C',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                      //display a   png icon from the web 
-                      Image.network(
-                        'http://openweathermap.org/img/wn/${snapshot.data!.daily![1].weather![0].icon}.png',
-                   
-                      )
-       
-                    ]),
-                    Column(children: [
-                      Text(
-                        DateFormat('EEEE').format(DateTime.fromMillisecondsSinceEpoch(snapshot.data!.daily![2].dt! * 1000)),
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        '${snapshot.data!.daily![2].temp!.day.toString()}°C',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                      Image.network(
-                        'http://openweathermap.org/img/wn/${snapshot.data!.daily![2].weather![0].icon}.png',
-                      )
-                    ]),
-                    Column(children: [
-                      Text(
-                        DateFormat('EEEE').format(DateTime.fromMillisecondsSinceEpoch(snapshot.data!.daily![3].dt! * 1000)),
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        '${snapshot.data!.daily![3].temp!.day.toString()}°C',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                      Image.network(
-                        'http://openweathermap.org/img/wn/${snapshot.data!.daily![3].weather![0].icon}.png',
-                      )
-                    ]),
-                    Column(children: [
-                      Text(
-                        DateFormat('EEEE').format(DateTime.fromMillisecondsSinceEpoch(snapshot.data!.daily![4].dt! * 1000)),
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        '${snapshot.data!.daily![4].temp!.day.toString()}°C',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                      Image.network(
-                        'http://openweathermap.org/img/wn/${snapshot.data!.daily![4].weather![0].icon}.png',
-                      )
-                    ]),
-                    Column(children: [
-                      Text(
-                        DateFormat('EEEE').format(DateTime.fromMillisecondsSinceEpoch(snapshot.data!.daily![5].dt! * 1000)),
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        '${snapshot.data!.daily![5].temp!.day.toString()}°C',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                      Image.network(
-                        'http://openweathermap.org/img/wn/${snapshot.data!.daily![5].weather![0].icon}.png',
-                      )
-                    ]),
-                  ]),
-            ),
-          ]);
-              }
-              return Center(
-                  child: CircularProgressIndicator(),
-                );
-            }
-          ),
-          
+              }),
         ],
       ),
     );

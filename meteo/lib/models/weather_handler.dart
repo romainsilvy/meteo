@@ -19,8 +19,8 @@ class WeatherHandler {
   }
 
   Future<DailyWeatherData> getDailyWeather(double lat, lon) async {
-    final String url = 
-      "http://api.openweathermap.org/data/2.5/onecall?lat=$lat&lon=$lon&appid=$API_KEY&units=metric&exclude=minutely,hourly,current";
+    final String url =
+        "http://api.openweathermap.org/data/2.5/onecall?lat=$lat&lon=$lon&appid=$API_KEY&units=metric&exclude=minutely,hourly,current";
 
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
