@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:meteo/models/daily_weather_data.dart';
 import 'package:meteo/models/weather_data.dart';
 import 'package:meteo/models/weather_handler.dart';
 import 'package:meteo/models/database_handler.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:meteo/models/weather_location.dart';
-import 'package:meteo/widgets/slider_dot.dart';
+
 
 import 'package:intl/intl.dart';
 
@@ -32,6 +28,8 @@ class SingleWeather extends StatefulWidget {
 
 class _SingleWeatherState extends State<SingleWeather> {
   late DatabaseHandler handler;
+  double lat = 45.76;
+  double lon = 4.83;
   final WeatherHandler weatherHandler = WeatherHandler();
 
   @override
@@ -54,6 +52,8 @@ class _SingleWeatherState extends State<SingleWeather> {
                 builder: (BuildContext context,
                     AsyncSnapshot<WeatherData> snapshot) {
                   if (snapshot.hasData) {
+                    lat = snapshot.data!.coord!.lat!;
+                    lon = snapshot.data!.coord!.lon!;
                     return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -156,7 +156,7 @@ class _SingleWeatherState extends State<SingleWeather> {
                 }),
           ),
           FutureBuilder(
-              future: weatherHandler.getDailyWeather(45.76, 4.83),
+              future: weatherHandler.getDailyWeather(lat, lon),
               builder: (BuildContext context,
                   AsyncSnapshot<DailyWeatherData> snapshot) {
                 if (snapshot.hasData) {

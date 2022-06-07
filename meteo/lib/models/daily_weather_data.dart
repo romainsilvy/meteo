@@ -14,7 +14,7 @@ class DailyWeatherData {
       this.daily,});
 
   DailyWeatherData.fromJson(Map<String, dynamic> json) {
-    lat = json['lat'];
+    lat = json['lat'].toDouble();
     lon = json['lon'];
     timezone = json['timezone'];
     timezoneOffset = json['timezone_offset'];
