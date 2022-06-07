@@ -66,6 +66,7 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                     onTap: () {
+                      Navigator.of(context).pop();
                       _controller.jumpToPage(index - 1);
                       setState(() {
                         _currentPage = index - 1;
