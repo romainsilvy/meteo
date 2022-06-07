@@ -130,13 +130,6 @@ class _HomePageState extends State<HomePage> {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      //button to add a new city
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _controller.jumpToPage(_currentPage + 1);
-        },
-        child: Icon(Icons.add),
-      ),
       body: Container(
           child: Stack(children: [
         Image.asset(
