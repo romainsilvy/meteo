@@ -37,29 +37,28 @@ class _HomePageState extends State<HomePage> {
           if (snapshot.hasData) {
             return ListView.builder(
               shrinkWrap: true,
-              itemCount: (snapshot.data!.length ?? 0) + 2,
+              itemCount: (snapshot.data?.length ?? 0) + 2,
               itemBuilder: (BuildContext context, int index) {
-                //print an item on top of the list
-                if (index == 0)
-                  return DrawerHeader(
-                    child: Text(
-                      'Mes villes',
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 255, 255, 255),
-                          fontSize: 25),
-                    ),
+                if (index == 0) {
+                  return const DrawerHeader(
                     decoration: BoxDecoration(
                         color: Colors.green,
                         image: DecorationImage(
                             fit: BoxFit.fill,
                             image: AssetImage('assets/images/city.jpg'))),
+                    child: Text(
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 255, 255, 255),
+                          fontSize: 25),
+                      'Mes villes',
+                    ),
                   );
-                else if (index <= snapshot.data!.length) {
+                } else if (index <= snapshot.data!.length) {
                   return ListTile(
                     title: Text(snapshot.data![index - 1].name),
-                    leading: Icon(Icons.location_city),
+                    leading: const Icon(Icons.location_city),
                     trailing: IconButton(
-                      icon: new Icon(Icons.delete),
+                      icon: const Icon(Icons.delete),
                       onPressed: () {
                         handler.deleteCity(snapshot.data![index - 1].name);
                         setState(() {});
@@ -75,8 +74,8 @@ class _HomePageState extends State<HomePage> {
                   );
                 } else {
                   return ListTile(
-                    leading: Icon(Icons.add),
-                    title: Text('Ajouter une ville'),
+                    leading: const Icon(Icons.add),
+                    title: const Text('Ajouter une ville'),
                     onTap: () async {
                       String? cityName = await prompt(
                         context,
@@ -94,7 +93,7 @@ class _HomePageState extends State<HomePage> {
             );
           } else {
             return ListView(
-              children: <Widget>[
+              children: const <Widget>[
                 ListTile(
                   title: Text('Chargement...'),
                 ),
@@ -125,13 +124,12 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        title: Text(
+        title: const Text(
           'Ma ville',
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: Container(
-          child: Stack(children: [
+      body: Stack(children: [
         Image.asset(
           bgImg,
           fit: BoxFit.cover,
@@ -139,7 +137,7 @@ class _HomePageState extends State<HomePage> {
           width: double.infinity,
         ),
         Container(
-          decoration: BoxDecoration(color: Colors.black38),
+          decoration: const BoxDecoration(color: Colors.black38),
         ),
         FutureBuilder(
             future: handler.getAllCities(),
@@ -147,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                 (BuildContext context, AsyncSnapshot<List<City>> snapshot) {
               if (snapshot.hasData) {
                 return Container(
-                  margin: EdgeInsets.only(top: 140, left: 15),
+                  margin: const EdgeInsets.only(top: 140, left: 15),
                   child: Row(children: [
                     for (int i = 0; i < snapshot.data!.length; i++)
                       if (i == _currentPage)
@@ -173,11 +171,11 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (ctx, i) =>
                         SingleWeather(index: i, name: snapshot.data![i].name));
               }
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }),
-      ])),
+      ]),
     );
   }
 }
