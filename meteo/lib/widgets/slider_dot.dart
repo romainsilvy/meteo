@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class SliderDot extends StatelessWidget {
   bool isActive;
-  SliderDot(this.isActive);
+  SliderDot(this.isActive, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
