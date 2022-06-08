@@ -39,7 +39,6 @@ class _HomePageState extends State<HomePage> {
               shrinkWrap: true,
               itemCount: (snapshot.data?.length ?? 0) + 2,
               itemBuilder: (BuildContext context, int index) {
-                //print an item on top of the list
                 if (index == 0) {
                   return const DrawerHeader(
                     decoration: BoxDecoration(
