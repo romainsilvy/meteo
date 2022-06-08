@@ -4,7 +4,6 @@ import 'package:meteo/models/weather_data.dart';
 import 'package:meteo/models/weather_handler.dart';
 import 'package:meteo/models/database_handler.dart';
 
-
 import 'package:intl/intl.dart';
 
 // class SingleWeather extends StatelessWidget {
@@ -35,14 +34,14 @@ class _SingleWeatherState extends State<SingleWeather> {
   @override
   void initState() {
     super.initState();
-    this.handler = DatabaseHandler();
-    this.handler.initializeDB();
+    handler = DatabaseHandler();
+    handler.initializeDB();
   }
 
+  @override
   Widget build(BuildContext context) {
-    String day = DateFormat('EEEE').format(DateTime.now());
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -66,47 +65,20 @@ class _SingleWeatherState extends State<SingleWeather> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      SizedBox(height: 150),
+                                      const SizedBox(height: 150),
                                       Text(
                                         snapshot.data!.name!,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 35,
                                             fontWeight: FontWeight.w500),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 5,
                                       ),
                                       Text(
-                                        (DateTime.fromMillisecondsSinceEpoch(snapshot.data!.dt! * 1000)
-                                                        .hour +
-                                                    DateTime.fromMillisecondsSinceEpoch(
-                                                            snapshot.data!
-                                                                    .timezone! *
-                                                                1000)
-                                                        .hour)
-                                                .toString() +
-                                            ' : ' +
-                                            DateTime.fromMillisecondsSinceEpoch(
-                                                    snapshot.data!.dt! * 1000)
-                                                .minute
-                                                .toString() +
-                                            ' - ' +
-                                            DateTime.fromMillisecondsSinceEpoch(
-                                                    snapshot.data!.dt! * 1000)
-                                                .day
-                                                .toString() +
-                                            '/' +
-                                            DateTime.fromMillisecondsSinceEpoch(
-                                                    snapshot.data!.dt! * 1000)
-                                                .month
-                                                .toString() +
-                                            '/' +
-                                            DateTime.fromMillisecondsSinceEpoch(
-                                                    snapshot.data!.dt! * 1000)
-                                                .year
-                                                .toString(),
-                                        style: TextStyle(
+                                        '${DateTime.fromMillisecondsSinceEpoch(snapshot.data!.dt! * 1000).hour + DateTime.fromMillisecondsSinceEpoch(snapshot.data!.timezone! * 1000).hour} : ${DateTime.fromMillisecondsSinceEpoch(snapshot.data!.dt! * 1000).minute} - ${DateTime.fromMillisecondsSinceEpoch(snapshot.data!.dt! * 1000).day}/${DateTime.fromMillisecondsSinceEpoch(snapshot.data!.dt! * 1000).month}/${DateTime.fromMillisecondsSinceEpoch(snapshot.data!.dt! * 1000).year}',
+                                        style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold,
@@ -118,7 +90,7 @@ class _SingleWeatherState extends State<SingleWeather> {
                                   children: [
                                     Text(
                                       '${snapshot.data!.main!.temp.toString()}°C',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 85,
                                           fontWeight: FontWeight.w300),
@@ -130,12 +102,12 @@ class _SingleWeatherState extends State<SingleWeather> {
                                           height: 34,
                                           width: 34,
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         Text(
                                           snapshot.data!.weather![0].main!,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 22,
                                             fontWeight: FontWeight.w500,
@@ -150,7 +122,7 @@ class _SingleWeatherState extends State<SingleWeather> {
                           ),
                         ]);
                   }
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }),
@@ -162,7 +134,7 @@ class _SingleWeatherState extends State<SingleWeather> {
                 if (snapshot.hasData) {
                   return Column(children: [
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 30),
+                      margin: const EdgeInsets.symmetric(vertical: 30),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.white30),
                       ),
@@ -177,14 +149,14 @@ class _SingleWeatherState extends State<SingleWeather> {
                                 DateFormat('EEEE').format(
                                     DateTime.fromMillisecondsSinceEpoch(
                                         snapshot.data!.daily![1].dt! * 1000)),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
                                 '${snapshot.data!.daily![1].temp!.day.toString()}°C',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
                                 ),
@@ -199,14 +171,14 @@ class _SingleWeatherState extends State<SingleWeather> {
                                 DateFormat('EEEE').format(
                                     DateTime.fromMillisecondsSinceEpoch(
                                         snapshot.data!.daily![2].dt! * 1000)),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
                                 '${snapshot.data!.daily![2].temp!.day.toString()}°C',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
                                 ),
@@ -220,14 +192,14 @@ class _SingleWeatherState extends State<SingleWeather> {
                                 DateFormat('EEEE').format(
                                     DateTime.fromMillisecondsSinceEpoch(
                                         snapshot.data!.daily![3].dt! * 1000)),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
                                 '${snapshot.data!.daily![3].temp!.day.toString()}°C',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
                                 ),
@@ -241,14 +213,14 @@ class _SingleWeatherState extends State<SingleWeather> {
                                 DateFormat('EEEE').format(
                                     DateTime.fromMillisecondsSinceEpoch(
                                         snapshot.data!.daily![4].dt! * 1000)),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
                                 '${snapshot.data!.daily![4].temp!.day.toString()}°C',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
                                 ),
@@ -262,14 +234,14 @@ class _SingleWeatherState extends State<SingleWeather> {
                                 DateFormat('EEEE').format(
                                     DateTime.fromMillisecondsSinceEpoch(
                                         snapshot.data!.daily![5].dt! * 1000)),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
                                 '${snapshot.data!.daily![5].temp!.day.toString()}°C',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
                                 ),
@@ -282,7 +254,7 @@ class _SingleWeatherState extends State<SingleWeather> {
                     ),
                   ]);
                 }
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }),

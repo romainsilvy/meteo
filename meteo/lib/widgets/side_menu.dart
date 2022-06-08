@@ -11,9 +11,9 @@ class NavDrawer extends StatefulWidget {
 }
 
 class _NavDrawerState extends State<NavDrawer> {
-  @override
   final DatabaseHandler handler = DatabaseHandler();
 
+  @override
   Widget build(BuildContext context) {
     return Drawer(
       child: FutureBuilder(
@@ -22,29 +22,29 @@ class _NavDrawerState extends State<NavDrawer> {
           if (snapshot.hasData) {
             return ListView.builder(
               shrinkWrap: true,
-              itemCount: (snapshot.data!.length ?? 0) + 2,
+              itemCount: (snapshot.data?.length ?? 0) + 2,
               itemBuilder: (BuildContext context, int index) {
                 //print an item on top of the list
-                if (index == 0)
-                  return DrawerHeader(
+                if (index == 0) {
+                  return const DrawerHeader(
+                    decoration: BoxDecoration(
+                        color: Colors.green,
+                        image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: AssetImage('assets/images/city.jpg'))),
                     child: Text(
                       'Mes villes',
                       style: TextStyle(
                           color: Color.fromARGB(255, 255, 255, 255),
                           fontSize: 25),
                     ),
-                    decoration: BoxDecoration(
-                        color: Colors.green,
-                        image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage('assets/images/city.jpg'))),
                   );
-                else if (index <= snapshot.data!.length) {
+                } else if (index <= snapshot.data!.length) {
                   return ListTile(
                     title: Text(snapshot.data![index - 1].name),
-                    leading: Icon(Icons.location_city),
+                    leading: const Icon(Icons.location_city),
                     trailing: IconButton(
-                      icon: new Icon(Icons.delete),
+                      icon: const Icon(Icons.delete),
                       onPressed: () {
                         handler.deleteCity(snapshot.data![index - 1].name);
                         setState(() {});
@@ -54,8 +54,8 @@ class _NavDrawerState extends State<NavDrawer> {
                   );
                 } else {
                   return ListTile(
-                    leading: Icon(Icons.add),
-                    title: Text('Ajouter une ville'),
+                    leading: const Icon(Icons.add),
+                    title: const Text('Ajouter une ville'),
                     onTap: () async {
                       String? cityName = await prompt(
                         context,
@@ -73,7 +73,7 @@ class _NavDrawerState extends State<NavDrawer> {
             );
           } else {
             return ListView(
-              children: <Widget>[
+              children: const <Widget>[
                 ListTile(
                   title: Text('Chargement...'),
                 ),
@@ -104,14 +104,14 @@ class _NavDrawerState extends State<NavDrawer> {
 }
 
 DrawerHeader _buildDrawerHeader() {
-  return DrawerHeader(
-    child: Text(
-      'Mes villes',
-      style: TextStyle(color: Color.fromARGB(255, 255, 255, 255), fontSize: 25),
-    ),
+  return const DrawerHeader(
     decoration: BoxDecoration(
         color: Colors.green,
         image: DecorationImage(
             fit: BoxFit.fill, image: AssetImage('assets/images/city.jpg'))),
+    child: Text(
+      'Mes villes',
+      style: TextStyle(color: Color.fromARGB(255, 255, 255, 255), fontSize: 25),
+    ),
   );
 }
